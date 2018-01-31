@@ -33,6 +33,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     compress: true,
     // host: HOST || config.dev.host,
     // port: PORT || config.dev.port,
+    // vagrant環境で動くようにする
     host: '192.168.33.10',
     port: '8080',
     open: config.dev.autoOpenBrowser,
