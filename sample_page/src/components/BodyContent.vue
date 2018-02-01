@@ -1,8 +1,12 @@
 <template>
   <div id="body">
     <div v-on:click="viewlist">{{message}}</div>
-  </ul>
-</div>
+    <ul v-if="linklist">
+      <li>qiita</li>
+      <li>github</li>
+      <li>hatena</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -10,12 +14,15 @@ export default {
   name: 'BodyContent',
   data: function(){
     return{
-      message: 'link'
+      message: 'link',
+      linklist: false
     }
   },
   methods: {
     viewlist: function(){
-      this.message = this.message.split('').reverse().join('')
+      // this.message = this.message.split('').reverse().join('')
+      console.log(this.linklist)
+      this.linklist = true
     }
   }
 }
