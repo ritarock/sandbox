@@ -1,11 +1,14 @@
 <template>
   <div id="body">
-    <div v-on:click="viewlist">{{message}}</div>
+    <div v-on:click="clickLink">{{link}}</div>
     <ul v-if="linklist">
-      <li>qiita</li>
-      <li>github</li>
-      <li>hatena</li>
+      <li><a href="https://qiita.com/ritarock">qiita</a></li>
+      <li><a href="https://github.com/ritarock">github</a></li>
+      <li><a href="http://ritarock.hatenablog.com/">hatenablog</a></li>
     </ul>
+    <hr />
+    <div>{{who}}</div>
+    <hr />
   </div>
 </template>
 
@@ -14,15 +17,17 @@ export default {
   name: 'BodyContent',
   data: function(){
     return{
-      message: 'link',
+      link: 'LINKS ▶︎',
+      who: 'WHO? ▶︎',
       linklist: false
     }
   },
   methods: {
-    viewlist: function(){
+    clickLink: function(){
       // this.message = this.message.split('').reverse().join('')
-      console.log(this.linklist)
+      // console.log(this.linklist)
       this.linklist = true
+      this.link = 'LINKS ▼'
     }
   }
 }
