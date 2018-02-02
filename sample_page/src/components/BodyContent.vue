@@ -24,10 +24,13 @@ export default {
   },
   methods: {
     clickLink: function(){
-      // this.message = this.message.split('').reverse().join('')
-      // console.log(this.linklist)
-      this.linklist = true
-      this.link = 'LINKS ▼'
+      if (this.linklist) {
+        this.link = 'LINKS ▶︎'
+        this.linklist = false
+      } else {
+        this.link = 'LINKS ▼'
+        this.linklist = true
+      }
     }
   }
 }
