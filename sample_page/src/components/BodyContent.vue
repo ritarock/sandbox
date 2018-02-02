@@ -1,13 +1,18 @@
 <template>
   <div id="body">
     <div v-on:click="clickLink">{{link}}</div>
-    <ul v-if="linklist">
+    <ul v-if="listLink">
       <li><a href="https://qiita.com/ritarock">qiita</a></li>
       <li><a href="https://github.com/ritarock">github</a></li>
       <li><a href="http://ritarock.hatenablog.com/">hatenablog</a></li>
     </ul>
     <hr />
-    <div>{{who}}</div>
+
+    <div v-on:click="clickWho">{{who}}</div>
+    <ul v-if="linkWho" id="self">
+      <li>NAME: ritarock</li>
+      <li>MAIL: wkryz1204@gmail.com</li>
+    </ul>
     <hr />
   </div>
 </template>
@@ -19,17 +24,27 @@ export default {
     return{
       link: 'LINKS ▶︎',
       who: 'WHO? ▶︎',
-      linklist: false
+      listLink: false,
+      linkWho: false
     }
   },
   methods: {
     clickLink: function(){
-      if (this.linklist) {
+      if (this.listLink) {
         this.link = 'LINKS ▶︎'
-        this.linklist = false
+        this.listLink = false
       } else {
         this.link = 'LINKS ▼'
-        this.linklist = true
+        this.listLink = true
+      }
+    },
+    clickWho: function(){
+      if (this.linkWho) {
+        this.who = 'WHO? ▶︎'
+        this. linkWho = false
+      } else {
+        this.who = 'WHO? ▼'
+        this.linkWho = true
       }
     }
   }
@@ -40,5 +55,8 @@ export default {
 <style scoped>
 #links {
   color: black;
+}
+#self {
+  list-style:none;
 }
 </style>
