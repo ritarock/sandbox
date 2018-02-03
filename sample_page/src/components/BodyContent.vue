@@ -1,14 +1,15 @@
 <template>
   <div id="body">
-    <div v-on:click="clickLink">{{link}}</div>
+    <div @click="clickLink">{{link}}</div>
     <ul v-if="listLink">
-      <li><a href="https://qiita.com/ritarock">qiita</a></li>
+      <li @mouseenter="showIcon" @mouseleave="hiddenIcon"><a href="https://qiita.com/ritarock">qiita</a></li>
+      <span v-if="activeIcon">aaa</span>
       <li><a href="https://github.com/ritarock">github</a></li>
       <li><a href="http://ritarock.hatenablog.com/">hatenablog</a></li>
     </ul>
     <hr />
 
-    <div v-on:click="clickWho">{{who}}</div>
+    <div @click="clickWho">{{who}}</div>
     <ul v-if="linkWho" id="self">
       <li>NAME: ritarock</li>
       <li>MAIL: wkryz1204@gmail.com</li>
@@ -25,7 +26,8 @@ export default {
       link: 'LINKS ▶︎',
       who: 'WHO? ▶︎',
       listLink: false,
-      linkWho: false
+      linkWho: false,
+      activeIcon: false
     }
   },
   methods: {
@@ -46,6 +48,14 @@ export default {
         this.who = 'WHO? ▼'
         this.linkWho = true
       }
+    },
+    showIcon: function(){
+      console.log("乗った")
+      return this.activeIcon = true
+    },
+    hiddenIcon: function(){
+      console.log("外れた")
+      return this.activeIcon = false
     }
   }
 }
