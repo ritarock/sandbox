@@ -1,20 +1,32 @@
 <template>
   <div id="body">
-    <div @click="clickLink">{{link}}</div>
-    <ul v-if="listLink">
-      <li @mouseenter="showIcon" @mouseleave="hiddenIcon"><a href="https://qiita.com/ritarock">qiita</a></li>
-      <span v-if="activeIcon">aaa</span>
-      <li><a href="https://github.com/ritarock">github</a></li>
-      <li><a href="http://ritarock.hatenablog.com/">hatenablog</a></li>
-    </ul>
+    <h1>Welcome to Mypage</h1>
     <hr />
 
-    <div @click="clickWho">{{who}}</div>
-    <ul v-if="linkWho" id="self">
-      <li>NAME: ritarock</li>
-      <li>MAIL: wkryz1204@gmail.com</li>
-    </ul>
-    <hr />
+    <div @click="clickLink">{{link}}</div>
+    <span v-if="listLink" class="link-list">
+      <span @mouseenter="qiitaShowIcon" @mouseleave="qiitaHiddenIcon" class="qiita-list">
+        <a href="https://qiita.com/ritarock">qiita</a>
+      </span>
+      <span @mouseenter="githubShowIcon" @mouseleave="githubHiddenIcon" class="github-list">
+        <a href="https://github.com/ritarock">github</a>
+      </span>
+      <span @mouseenter="hatenablogShowIcon" @mouseleave="hatenablogHiddenIcon" class="hatenablog-list">
+        <a href="http://ritarock.hatenablog.com/">hatenablog</a>
+      </span>
+    </span>
+
+    <span class="icon">
+      <span v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="150"></span>
+      <span v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="150"></span>
+      <span v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="150"></span>
+    </span>
+
+    <div @click="clickWho" class="who-list">{{who}}</div>
+    <span v-if="linkWho">
+      <span class="who-name">NAME: ritarock</span>
+      <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
+    </span>
   </div>
 </template>
 
@@ -27,7 +39,9 @@ export default {
       who: 'WHO? ▶︎',
       listLink: false,
       linkWho: false,
-      activeIcon: false
+      qiitaActiveIcon: false,
+      githubActiveIcon: false,
+      hatenablogActiveIcon: false
     }
   },
   methods: {
@@ -49,13 +63,23 @@ export default {
         this.linkWho = true
       }
     },
-    showIcon: function(){
-      console.log("乗った")
-      return this.activeIcon = true
+    qiitaShowIcon: function(){
+      return this.qiitaActiveIcon = true
     },
-    hiddenIcon: function(){
-      console.log("外れた")
-      return this.activeIcon = false
+    qiitaHiddenIcon: function(){
+      return this.qiitaActiveIcon = false
+    },
+    githubShowIcon: function(){
+      return this.githubActiveIcon = true
+    },
+    githubHiddenIcon: function(){
+      return this.githubActiveIcon = false
+    },
+    hatenablogShowIcon: function(){
+      return this.hatenablogActiveIcon = true
+    },
+    hatenablogHiddenIcon: function(){
+      return this.hatenablogActiveIcon = false
     }
   }
 }
@@ -63,10 +87,55 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 #links {
   color: black;
 }
-#self {
-  list-style:none;
+h1{
+  font-size: 100%;
+  font-weight: normal;
+  text-align: center;
 }
+
+.link-list {
+  position: relative;
+  left: 0px;
+  background-color:red;
+}
+.qiita-list {
+  position: absolute;
+  top: 0px;
+  left: 10px;
+}
+.github-list {
+  position: absolute;
+  top: 25px;
+  left: 10px;
+}
+.hatenablog-list {
+  position: absolute;
+  top: 45px;
+  left: 10px;
+}
+.icon {
+  position: absolute;
+  top: 100px;
+  left: 550px
+}
+.who-list {
+  position: absolute;
+  top: 200px;
+  left: 0px;
+}
+.who-name {
+  position: absolute;
+  top: 225px;
+  left: 10px;
+}
+.who-mail {
+  position: absolute;
+  top: 245px;
+  left: 10px;
+}
+
 </style>

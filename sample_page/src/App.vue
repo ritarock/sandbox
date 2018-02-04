@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <TopContent/>
+    <!-- <TopContent/> -->
     <BodyContent/>
   </div>
 </template>
 
 <script>
-import TopContent from './components/TopContent'
+// import TopContent from './components/TopContent'
 import BodyContent from './components/BodyContent'
 
 export default {
   name: 'App',
   components: {
-    TopContent,
+    // TopContent,
     BodyContent
   }
 }
