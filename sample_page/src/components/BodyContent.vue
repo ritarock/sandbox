@@ -109,12 +109,12 @@ h1{
 }
 .github-list {
   position: absolute;
-  top: 25px;
+  top: 20px;
   left: 10px;
 }
 .hatenablog-list {
   position: absolute;
-  top: 45px;
+  top: 40px;
   left: 10px;
 }
 .icon {
