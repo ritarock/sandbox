@@ -2,7 +2,6 @@
   <div id="body">
     <h1>Welcome to Mypage</h1>
     <hr />
-
     <div @click="clickLink">{{link}}</div>
     <span v-if="listLink" class="link-list">
       <span @mouseenter="qiitaShowIcon" @mouseleave="qiitaHiddenIcon" class="qiita-list">
@@ -17,9 +16,9 @@
     </span>
 
     <span class="icon">
-      <span v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="150"></span>
-      <span v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="150"></span>
-      <span v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="150"></span>
+      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="200" height="200"></span>
+      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="200" height="200"></span>
+      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="200" height="200"></span>
     </span>
 
     <div @click="clickWho" class="who-list">{{who}}</div>
@@ -117,9 +116,24 @@ h1{
   top: 40px;
   left: 10px;
 }
-.icon {
+/*.icon {
   position: absolute;
   top: 100px;
+  left: 550px
+}*/
+.qiita-icon{
+  position: absolute;
+  top: 100px;
+  left: 550px
+}
+.github-icon{
+  position: absolute;
+  top: 100px;
+  left: 550px
+}
+.hatenablog-icon{
+  position: absolute;
+  top: 110px;
   left: 550px
 }
 .who-list {
