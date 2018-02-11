@@ -116,11 +116,6 @@ h1{
   top: 40px;
   left: 10px;
 }
-/*.icon {
-  position: absolute;
-  top: 100px;
-  left: 550px
-}*/
 .qiita-icon{
   position: absolute;
   top: 100px;
