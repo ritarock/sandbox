@@ -2,7 +2,8 @@
   <div id="body">
     <h1>Welcome to Mypage</h1>
     <hr />
-    <div @click="clickLink">{{link}}</div>
+
+    <div @click="clickLink" style="font-size:120%;">{{link}}</div>
     <span v-if="listLink" class="link-list">
       <span @mouseenter="qiitaShowIcon" @mouseleave="qiitaHiddenIcon" class="qiita-list">
         <a href="https://qiita.com/ritarock">qiita</a>
@@ -21,7 +22,7 @@
       <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="400" height="400"></span>
     </span>
 
-    <div @click="clickWho" class="who-list">{{who}}</div>
+    <div @click="clickWho" class="who-list" style="font-size:120%;">{{who}}</div>
     <span v-if="linkWho">
       <span class="who-name">NAME: ritarock</span>
       <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
@@ -91,11 +92,10 @@ export default {
   color: black;
 }
 h1{
-  font-size: 100%;
+  font-size: 120%;
   font-weight: normal;
   text-align: center;
 }
-
 .link-list {
   position: relative;
   left: 0px;
@@ -105,16 +105,19 @@ h1{
   position: absolute;
   top: 0px;
   left: 10px;
+  font-size:120%;
 }
 .github-list {
   position: absolute;
   top: 20px;
   left: 10px;
+  font-size:120%;
 }
 .hatenablog-list {
   position: absolute;
   top: 40px;
   left: 10px;
+  font-size:120%;
 }
 .qiita-icon{
   position: absolute;
@@ -140,11 +143,13 @@ h1{
   position: absolute;
   top: 225px;
   left: 10px;
+  font-size:120%;
 }
 .who-mail {
   position: absolute;
   top: 245px;
   left: 10px;
+  font-size:120%;
 }
 
 </style>
