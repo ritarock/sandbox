@@ -16,9 +16,9 @@
     </span>
 
     <span class="icon">
-      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="200" height="200"></span>
-      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="200" height="200"></span>
-      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="200" height="200"></span>
+      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="400" height="400"></span>
+      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="400" height="400"></span>
+      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="400" height="400"></span>
     </span>
 
     <div @click="clickWho" class="who-list">{{who}}</div>
@@ -119,17 +119,17 @@ h1{
 .qiita-icon{
   position: absolute;
   top: 100px;
-  left: 550px
+  left: 450px
 }
 .github-icon{
   position: absolute;
   top: 100px;
-  left: 550px
+  left: 450px
 }
 .hatenablog-icon{
   position: absolute;
-  top: 110px;
-  left: 550px
+  top: 120px;
+  left: 450px
 }
 .who-list {
   position: absolute;
