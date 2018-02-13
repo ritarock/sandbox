@@ -2,7 +2,8 @@
   <div id="body">
     <h1>Welcome to Mypage</h1>
     <hr />
-    <div @click="clickLink">{{link}}</div>
+
+    <div @click="clickLink" style="font-size:120%;">{{link}}</div>
     <span v-if="listLink" class="link-list">
       <span @mouseenter="qiitaShowIcon" @mouseleave="qiitaHiddenIcon" class="qiita-list">
         <a href="https://qiita.com/ritarock">qiita</a>
@@ -16,12 +17,12 @@
     </span>
 
     <span class="icon">
-      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="200" height="200"></span>
-      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="200" height="200"></span>
-      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="200" height="200"></span>
+      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="400" height="400"></span>
+      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="400" height="400"></span>
+      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="400" height="400"></span>
     </span>
 
-    <div @click="clickWho" class="who-list">{{who}}</div>
+    <div @click="clickWho" class="who-list" style="font-size:120%;">{{who}}</div>
     <span v-if="linkWho">
       <span class="who-name">NAME: ritarock</span>
       <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
@@ -91,11 +92,10 @@ export default {
   color: black;
 }
 h1{
-  font-size: 100%;
+  font-size: 120%;
   font-weight: normal;
   text-align: center;
 }
-
 .link-list {
   position: relative;
   left: 0px;
@@ -105,36 +105,34 @@ h1{
   position: absolute;
   top: 0px;
   left: 10px;
+  font-size:120%;
 }
 .github-list {
   position: absolute;
   top: 20px;
   left: 10px;
+  font-size:120%;
 }
 .hatenablog-list {
   position: absolute;
   top: 40px;
   left: 10px;
+  font-size:120%;
 }
-/*.icon {
-  position: absolute;
-  top: 100px;
-  left: 550px
-}*/
 .qiita-icon{
   position: absolute;
   top: 100px;
-  left: 550px
+  left: 450px
 }
 .github-icon{
   position: absolute;
   top: 100px;
-  left: 550px
+  left: 450px
 }
 .hatenablog-icon{
   position: absolute;
-  top: 110px;
-  left: 550px
+  top: 120px;
+  left: 450px
 }
 .who-list {
   position: absolute;
@@ -145,11 +143,13 @@ h1{
   position: absolute;
   top: 225px;
   left: 10px;
+  font-size:120%;
 }
 .who-mail {
   position: absolute;
   top: 245px;
   left: 10px;
+  font-size:120%;
 }
 
 </style>
