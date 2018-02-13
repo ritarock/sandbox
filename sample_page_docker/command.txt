@@ -1,2 +1,2 @@
 sudo docker build -t test-image .
-sudo docker run --name [container-name] -d -p 8080:8080 [docker-image]
+sudo docker run --rm --name [container-name] -d -p 8080:8080 [docker-image]
