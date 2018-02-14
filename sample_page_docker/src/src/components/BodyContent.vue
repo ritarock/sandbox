@@ -3,7 +3,7 @@
     <h1>Welcome to Mypage</h1>
     <hr />
 
-    <div @click="clickLink" style="font-size:120%;">{{link}}</div>
+    <div @click="clickLink" style="font-size:120%;cursor:pointer;">{{link}}</div>
     <span v-if="listLink" class="link-list">
       <span @mouseenter="qiitaShowIcon" @mouseleave="qiitaHiddenIcon" class="qiita-list">
         <a href="https://qiita.com/ritarock">qiita</a>
@@ -22,7 +22,7 @@
       <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="400" height="400"></span>
     </span>
 
-    <div @click="clickWho" class="who-list" style="font-size:120%;">{{who}}</div>
+    <div @click="clickWho" class="who-list" style="font-size:120%;cursor:pointer;">{{who}}</div>
     <span v-if="linkWho">
       <span class="who-name">NAME: ritarock</span>
       <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
