@@ -17,9 +17,9 @@
     </span>
 
     <span class="icon">
-      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png"></span>
-      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png"></span>
-      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png"></span>
+      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="400" height="400"></span>
+      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="400" height="400"></span>
+      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="400" height="400"></span>
     </span>
 
     <div @click="clickWho" class="who-list" style="font-size:120%;cursor:pointer;">{{who}}</div>
@@ -28,7 +28,7 @@
       <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
     </span>
 
-    <span id="footer"><a href="https://github.com/ritarock/sand-box/tree/master/sample_page">This page is made of vuejs</a></span>
+      <span id="footer"><a href="https://github.com/ritarock/sand-box/tree/master/sample_page">This page is made of vuejs</a></span>
 
   </div>
 </template>
@@ -124,18 +124,18 @@ h1{
 }
 .qiita-icon{
   position: absolute;
-  top: 100;
-  left: 25%;
+  top: 100px;
+  left: 450px
 }
 .github-icon{
   position: absolute;
-  top: 100;
-  left: 25%;
+  top: 100px;
+  left: 450px
 }
 .hatenablog-icon{
   position: absolute;
-  top: 100;
-  left: 17%;
+  top: 120px;
+  left: 450px
 }
 .who-list {
   position: absolute;
@@ -155,28 +155,28 @@ h1{
   font-size:120%;
 }
 body , html {
-  height: 100%;
+    height: 100%;
 }
 
 #container {
-  width: 100%;
-  position: relative;
-  height: auto !important;
-  height: 100%;
-  min-height: 100%;
+    width: 100%;
+    position: relative;
+    height: auto !important;
+    height: 100%;
+    min-height: 100%;
 }
 
 #contents {
-  padding-bottom: 100px;
+    padding-bottom: 100px;
 }
 #footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  font-size: 85%;
-  font-weight: normal;
-  text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    font-size: 85%;
+    font-weight: normal;
+    text-align: center;
 }
 
 </style>
