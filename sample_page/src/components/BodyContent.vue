@@ -18,14 +18,6 @@
       </span>
     </span>
 
-    <!-- <div @click="clickWho" style="font-size:120%;">
-      <md-button class="md-raised md-primary">{{who}}</md-button>
-    </div>
-    <span v-if="linkWho">
-      <span class="who-name">NAME: ritarock</span>
-      <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
-    </span> -->
-
     <div @click="clickWho" class="who-list" style="font-size:120%;">
       <md-button class="md-raised md-primary">{{who}}</md-button>
     </div>
@@ -33,7 +25,6 @@
       <span class="who-name">NAME: ritarock</span>
       <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
     </span>
-
 
     <span class="icon">
       <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="400" height="400"></span>
