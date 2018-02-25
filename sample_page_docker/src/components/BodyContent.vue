@@ -1,9 +1,11 @@
 <template>
   <div id="body">
-    <h1>Welcome to Mypage</h1>
+    <h1>Mypage</h1>
     <hr />
 
-    <div @click="clickLink" style="font-size:120%;">{{link}}</div>
+    <div @click="clickLink" style="font-size:120%;">
+      <md-button class="md-raised md-primary">{{link}}</md-button>
+    </div>
     <span v-if="listLink" class="link-list">
       <span @mouseenter="qiitaShowIcon" @mouseleave="qiitaHiddenIcon" class="qiita-list">
         <a href="https://qiita.com/ritarock">qiita</a>
@@ -16,17 +18,22 @@
       </span>
     </span>
 
-    <span class="icon">
-      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="400" height="400"></span>
-      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="400" height="400"></span>
-      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="400" height="400"></span>
-    </span>
-
-    <div @click="clickWho" class="who-list" style="font-size:120%;">{{who}}</div>
+    <div @click="clickWho" class="who-list" style="font-size:120%;">
+      <md-button class="md-raised md-primary">{{who}}</md-button>
+    </div>
     <span v-if="linkWho">
       <span class="who-name">NAME: ritarock</span>
       <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
     </span>
+
+    <span class="icon">
+      <span class="qiita-icon" v-if="qiitaActiveIcon"><center><img src="../assets/qiita.png" width="400" height="400"></center></span>
+      <span class="github-icon" v-if="githubActiveIcon"><center><img src="../assets/GitHub.png" width="400" height="400"></center></span>
+      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><center><img src="../assets/hatena.png" width="400" height="400"></center></span>
+    </span>
+
+    <span id="footer"><a href="https://github.com/ritarock/sand-box/tree/master/sample_page">This page is made of vuejs</a></span>
+
   </div>
 </template>
 
@@ -135,21 +142,46 @@ h1{
   left: 450px
 }
 .who-list {
-  position: absolute;
+  position: relative;
   top: 200px;
   left: 0px;
 }
 .who-name {
   position: absolute;
-  top: 225px;
+  top: 300px;
   left: 10px;
   font-size:120%;
 }
 .who-mail {
   position: absolute;
-  top: 245px;
+  top: 320px;
   left: 10px;
   font-size:120%;
+}
+body , html {
+  height: 100%;
+}
+#container {
+  width: 100%;
+  position: relative;
+  height: auto !important;
+  height: 100%;
+  min-height: 100%;
+}
+#contents {
+  padding-bottom: 100px;
+}
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  font-size: 85%;
+  font-weight: normal;
+  text-align: center;
+}
+.md-raised {
+  color: gray;
 }
 
 </style>
