@@ -27,9 +27,9 @@
     </span>
 
     <span class="icon">
-      <span class="qiita-icon" v-if="qiitaActiveIcon"><img src="../assets/qiita.png" width="400" height="400"></span>
-      <span class="github-icon" v-if="githubActiveIcon"><img src="../assets/GitHub.png" width="400" height="400"></span>
-      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><img src="../assets/hatena.png" width="400" height="400"></span>
+      <span class="qiita-icon" v-if="qiitaActiveIcon"><center><img src="../assets/qiita.png" width="400" height="400"></center></span>
+      <span class="github-icon" v-if="githubActiveIcon"><center><img src="../assets/GitHub.png" width="400" height="400"></center></span>
+      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><center><img src="../assets/hatena.png" width="400" height="400"></center></span>
     </span>
 
     <span id="footer"><a href="https://github.com/ritarock/sand-box/tree/master/sample_page">This page is made of vuejs</a></span>
