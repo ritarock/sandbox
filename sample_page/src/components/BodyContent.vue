@@ -1,36 +1,7 @@
 <template>
   <div id="body">
-    <h1>Mypage</h1>
+    <h1>メンテナンス中</h1>
     <hr />
-
-    <div @click="clickLink" style="font-size:120%;">
-      <md-button class="md-raised md-primary">{{link}}</md-button>
-    </div>
-    <span v-if="listLink" class="link-list">
-      <span @mouseenter="qiitaShowIcon" @mouseleave="qiitaHiddenIcon" class="qiita-list">
-        <a href="https://qiita.com/ritarock">qiita</a>
-      </span>
-      <span @mouseenter="githubShowIcon" @mouseleave="githubHiddenIcon" class="github-list">
-        <a href="https://github.com/ritarock">github</a>
-      </span>
-      <span @mouseenter="hatenablogShowIcon" @mouseleave="hatenablogHiddenIcon" class="hatenablog-list">
-        <a href="http://ritarock.hatenablog.com/">hatenablog</a>
-      </span>
-    </span>
-
-    <div @click="clickWho" class="who-list" style="font-size:120%;">
-      <md-button class="md-raised md-primary">{{who}}</md-button>
-    </div>
-    <span v-if="linkWho">
-      <span class="who-name">NAME: ritarock</span>
-      <span class="who-mail">MAIL: wkryz1204@gmail.com</span>
-    </span>
-
-    <span class="icon">
-      <span class="qiita-icon" v-if="qiitaActiveIcon"><center><img src="../assets/qiita.png" width="400" height="400"></center></span>
-      <span class="github-icon" v-if="githubActiveIcon"><center><img src="../assets/GitHub.png" width="400" height="400"></center></span>
-      <span class="hatenablog-icon" v-if="hatenablogActiveIcon"><center><img src="../assets/hatena.png" width="400" height="400"></center></span>
-    </span>
 
     <span id="footer"><a href="https://github.com/ritarock/sand-box/tree/master/sample_page">This page is made of vuejs</a></span>
 
@@ -38,58 +9,6 @@
 </template>
 
 <script>
-export default {
-  name: 'BodyContent',
-  data: function(){
-    return{
-      link: 'LINKS ▶︎',
-      who: 'WHO? ▶︎',
-      listLink: false,
-      linkWho: false,
-      qiitaActiveIcon: false,
-      githubActiveIcon: false,
-      hatenablogActiveIcon: false
-    }
-  },
-  methods: {
-    clickLink: function(){
-      if (this.listLink) {
-        this.link = 'LINKS ▶︎'
-        this.listLink = false
-      } else {
-        this.link = 'LINKS ▼'
-        this.listLink = true
-      }
-    },
-    clickWho: function(){
-      if (this.linkWho) {
-        this.who = 'WHO? ▶︎'
-        this. linkWho = false
-      } else {
-        this.who = 'WHO? ▼'
-        this.linkWho = true
-      }
-    },
-    qiitaShowIcon: function(){
-      return this.qiitaActiveIcon = true
-    },
-    qiitaHiddenIcon: function(){
-      return this.qiitaActiveIcon = false
-    },
-    githubShowIcon: function(){
-      return this.githubActiveIcon = true
-    },
-    githubHiddenIcon: function(){
-      return this.githubActiveIcon = false
-    },
-    hatenablogShowIcon: function(){
-      return this.hatenablogActiveIcon = true
-    },
-    hatenablogHiddenIcon: function(){
-      return this.hatenablogActiveIcon = false
-    }
-  }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
