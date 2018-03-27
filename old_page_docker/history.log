@@ -1,0 +1,302 @@
+    1  sudo apt-get update
+    2  sudo apt-get install -y build-essential libssl-dev
+    3  sudo apt-get install -y curl
+    4  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+    5  source ~/.bashrc
+    6  nvm install v7.10
+    7  node -v
+    8  nvm ls-remote
+    9  nvm install v8.9.4
+   10  sudo su -
+   11  cd /vagrant/
+   12  ls
+   13  npm install -g vue-cli
+   14  vue --version
+   15  vue init webpack sample_page
+   16  cd sample_page/
+   17  ls
+   18  npm i
+   19  npm run dev
+   20  exit
+   21  cd sample_page/
+   22  cd /vagrant/sample_page/
+   23  ls
+   24  npm run dev
+   25  cd ..
+   26  rm -rf sample_page/
+   27  vue init webpack sample_page
+   28  ls
+   29  npm -v
+   30  npm --version
+   31  history
+   32  vue --version
+   33  npm install -g vue-cli
+   34  vue --version
+   35  vue init webpack sample_page
+   36  cd sample_page/
+   37  npm run dev
+   38  ls
+   39  npm run build
+   40  exit
+   41  cd /vagrant/
+   42  ls
+   43  cd sample_page/
+   44  ls
+   45  history
+   46  ls
+   47  npm run dev
+   48  ls
+   49  npm run build
+   50  ls
+   51  npm run dev
+   52  exit
+   53  cd /vagrant/
+   54  ls
+   55  cd sample_page/
+   56  ls
+   57  npm run dev
+   58  ls
+   59  npm run build
+   60  npm run dev
+   61  exit
+   62  cd /vagrant/
+   63  ls
+   64  cd sample_page/
+   65  ls
+   66  npm run build
+   67  exit
+   68  cd /vagrant/
+   69  ls
+   70  cd sample_page/
+   71  ls
+   72  npm run dev
+   73  exit
+   74  cd /vagrant/
+   75  ls
+   76  cd sample_page/
+   77  npm run dev
+   78  npm i
+   79  sudo npm i
+   80  npm run dev
+   81  npm run build
+   82  ls
+   83  npm run dev
+   84  exit
+   85  cd /vagrant/
+   86  ls
+   87  cd sample_page/
+   88  ls
+   89  npm run dev
+   90  ls
+   91  npm run dev
+   92  exit
+   93  cd /vagrant/sample_page/
+   94  ls
+   95  npm run build
+   96  exit
+   97  cd /vagrant/
+   98  ls
+   99  cd sample_page/
+  100  ls
+  101  npm run dev
+  102  exit
+  103  cd /vagrant/
+  104  ls
+  105  cd sample_page/
+  106  npm run build
+  107  exit
+  108  cd /vagrant/
+  109  ls
+  110  cd sample_page/
+  111  ls
+  112  npm run dev
+  113  exit
+  114  cd sample_page/
+  115  npm run dev
+  116  exit
+  117  cd /vagrant/sample_page/
+  118  ls
+  119  npm run dev
+  120  exit
+  121  cd /vagrant/sample_page/
+  122  ls
+  123  npm run dev
+  124  npm run build
+  125  exit
+  126  history
+  127  exit
+  128  cd /vagrant/
+  129  npm run dev
+  130  cd sample_page/
+  131  npm run dev
+  132  history
+  133  npm uninstall bootstrap-vue --save
+  134  npm run dev
+  135  npm install -g yarn
+  136  npm install vue-material --save
+  137  yarn add vue-material
+  138  npm run dev
+  139  exit
+  140  cd /vagrant/sample_page/
+  141  ls
+  142  npm run dev
+  143  exit
+  144  cd /vagrant/sample_page/
+  145  ls
+  146  npm run dev
+  147  exit
+  148  cd /vagrant/sample_page/
+  149  ls
+  150  npm run build
+  151  exit
+  152  cd /vagrant/sample_page/
+  153  ls
+  154  npm run dev
+  155  npm run build
+  156  exit
+  157  cd /vagrant/sample_page/
+  158  ls
+  159  npm run dev
+  160  npm run build
+  161  exit
+  162  ls
+  163  cd /vagrant/
+  164  ls
+  165  cd sample_page
+  166  ls
+  167  npm run dev
+  168  ls
+  169  cd /vagrant/
+  170  ls
+  171  cd sample_page
+  172  ls
+  173  npm run dev
+  174  exit
+  175  cd /vagrant/sample_page
+  176  ls
+  177  npm run dev
+  178  npm run build
+  179  exit
+  180  cd /vagrant/sample_page
+  181  ls
+  182  npm run dev
+  183  exit
+  184  ls
+  185  cd /vagrant/
+  186  ls
+  187  exit
+  188  sudo docker images
+  189  ls /vagrant/
+  190  sudo docker --version
+  191  exit
+  192  cd /vagrant/
+  193  ls
+  194  cd sample_page
+  195  npm run dev
+  196  npm run build
+  197  cp -r src/ ../sample_page_docker/src/
+  198  exit
+  199  cd /vagrant/
+  200  ls
+  201  cd sample_page
+  202  ls
+  203  npm run dev
+  204  exit
+  205  cd /vagrant/sample_page
+  206  ls
+  207  npm run dev
+  208  exit
+  209  cd /vagrant/
+  210  ls
+  211  cd sample_page
+  212  ls
+  213  npm run dev
+  214  exit
+  215  cd /vagrant/
+  216  cd sample_page
+  217  npm run dev
+  218  npm run build
+  219  exit
+  220  cd /vagrant/
+  221  ls
+  222  cd sample_page
+  223  ls
+  224  npm run build
+  225  cd ..
+  226  ls
+  227  cp sample_page/src/ sample_page_docker/src/
+  228  cp -r sample_page/src/ sample_page_docker/src/
+  229  exit
+  230  cd /vagrant/
+  231  ls
+  232  cd sample_page
+  233  ls
+  234  npm run dev
+  235  ls
+  236  cd ..
+  237  ls
+  238  cp sample_page/src/ sample_page_docker/src/
+  239  cp -r sample_page/src/ sample_page_docker/src/
+  240  exit
+  241  cd /vagrant
+  242  ls
+  243  cd sample_page
+  244  ls
+  245  npm run dev
+  246  npm run build
+  247  exit
+  248  cd /vagrant/
+  249  cd sample_page
+  250  ls
+  251  npm run dev
+  252  exit
+  253  cd /vagrant/sample_page
+  254  npm run build
+  255  cp -f src/ ../sample_page_docker/src/
+  256  cp -r src/ ../sample_page_docker/src/
+  257  exit
+  258  cd /vagrant/
+  259  ls
+  260  cd sample_page
+  261  ls
+  262  npm run dev
+  263  npm run build
+  264  ls
+  265  cp src/components/BodyContent.vue ../sample_page_docker/src/components/BodyContent.vue 
+  266  exit
+  267  cd /vagrant/
+  268  ls
+  269  cd sample_page
+  270  ls
+  271  npm run dev
+  272  npm run build
+  273  npm run dev
+  274  cp ../sample_page_docker/src/components/BodyContent.vue 
+  275  cp ../sample_page_docker/src/components/BodyContent.vue ./src/components/
+  276  npm run dev
+  277  npm run build
+  278  exit
+  279  ls
+  280  cd /vagrant/
+  281  ls
+  282  cd sample_page
+  283  ;s
+  284  ls
+  285  npm run dev
+  286  npm run build
+  287  exit
+  288  cd /vagrant/
+  289  ls
+  290  cd rails_test/
+  291  la
+  292  cd ..
+  293  exit
+  294  history
+  295  exit
+  296  docker --version
+  297  exit
+  298  history
+  299  ls
+  300  cd /vagrant/
+  301  ls
+  302  history > history.log
