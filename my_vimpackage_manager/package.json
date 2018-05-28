@@ -1,0 +1,11 @@
+{
+  "start":[
+    "scrooloose/nerdtree",
+    "itchyny/lightline.vim",
+    "tomtom/tcomment_vim",
+    "nathanaelkane/vim-indent-guides",
+    "Townk/vim-autoclose"
+  ],
+  "opt":[
+  ]
+}
