@@ -1,10 +1,11 @@
 {
   "start":[
     "scrooloose/nerdtree",
+    "bronson/vim-trailing-whitespace",
     "itchyny/lightline.vim",
     "tomtom/tcomment_vim",
-    "nathanaelkane/vim-indent-guides",
-    "Townk/vim-autoclose"
+    "Townk/vim-autoclose",
+    "cohama/lexima.vim"
   ],
   "opt":[
   ]
