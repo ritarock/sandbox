@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Footer from './components/Footer';
+import Header from './components/Header';
 // import './index.css';
 
 class Contents extends React.Component {
@@ -12,22 +14,13 @@ class Contents extends React.Component {
   }
 }
 
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        my page
-      </div>
-    );
-  }
-}
-
 class Main extends React.Component {
   render() {
     return (
       <div>
         <Header />
         <Contents />
+        <Footer />
       </div>
     );
   }
