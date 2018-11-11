@@ -1,0 +1,18 @@
+{
+    "start":[
+        "bronson/vim-trailing-whitespace",
+        "itchyny/lightline.vim",
+        "tpope/vim-endwise",
+        "nathanaelkane/vim-indent-guides",
+        "othree/yajs.vim",
+        "scrooloose/nerdtree",
+        "Shougo/unite.vim",
+        "tomasr/molokai",
+        "tomtom/tcomment_vim",
+        "Townk/vim-autoclose",
+        "vim-jp/vimdoc-ja"
+    ],
+    "opt":[
+        "fatih/vim-go"
+    ]
+}
