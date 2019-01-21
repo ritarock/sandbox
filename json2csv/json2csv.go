@@ -1,7 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println("vim-go")
+	f, err := os.Open("./boston.json")
+
+	if err != nil {
+		fmt.Println("error")
+	}
+
+	defer f.Close()
+
+	buf := make([]byte, 1024)
+
+	for {
+		n, err := f.Read(buf)
+
+		if n == 0 {
+			break
+		}
+
+		if err != nil {
+			break
+		}
+		fmt.Println(string(buf[:n]))
+	}
 }
