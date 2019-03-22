@@ -4,13 +4,15 @@ import json
 import shutil
 import sys
 
+START_DIR = '/.vim/pack/mypackage/start/'
+OPT_DIR = '/.vim/pack/mypackage/opt/'
+HOME_PATH = os.path.expanduser('~')
+
+
 def main(arg):
     start_package_list = []
     opt_package_list = []
-    start_dir = '/.vim/pack/mypackage/start/'
-    opt_dir = '/.vim/pack/mypackage/opt/'
-    home_path = os.path.expanduser('~')
-    f = open('package.json','r')
+    f = open('package.json', 'r')
     tmp_list = json.load(f)
 
     for start in tmp_list["start"]:
@@ -20,19 +22,19 @@ def main(arg):
         opt_package_list.append(opt)
 
     if len(arg) == 0:
-        check(start_package_list,home_path,start_dir,tmp_list)
-        check(opt_package_list,home_path,opt_dir,tmp_list)
+        check(start_package_list, HOME_PATH, START_DIR, tmp_list)
+        check(opt_package_list, HOME_PATH, OPT_DIR, tmp_list)
     else:
-        # アップデートの処理
         if arg[0] == 'update':
             for package in start_package_list:
                 print('CHECK ' + package.split('/')[1])
-                subprocess.run(['git','-C',home_path+start_dir + package.split('/')[1],'pull'])
+                subprocess.run(['git', '-C', HOME_PATH+START_DIR + package.split('/')[1], 'pull'])
         else:
             print('no argument')
 
-def check(package_list,home_path,dir,tmp_list):
-    path = home_path + dir
+
+def check(package_list, HOME_PATH, d, tmp_list):
+    path = HOME_PATH + d
     check_package = []
     now_package = os.listdir(path)
     diff = []
@@ -40,12 +42,10 @@ def check(package_list,home_path,dir,tmp_list):
     add_list = []
     remove_list = []
 
-    # 導入済みのパッケージがない
     if len(now_package) == 0:
         for package in package_list:
             add_list.append(package.split('/'))
     else:
-        # package_list.jsonにあるパッケージを導入
         for d in package_list:
             diff.append(d.split('/')[1])
         add_tmp = set(diff) - set(now_package)
@@ -55,30 +55,30 @@ def check(package_list,home_path,dir,tmp_list):
                 if ad in l:
                     add_list.append(l.split('/'))
 
-        # package_list.jsonにないパッケージを削除
         for plug in package_list:
             check_package.append(plug.split('/')[1])
         rm_tmp = set(now_package) - set(check_package)
         remove_list = list(rm_tmp)
 
-    # パッケージ追加処理
-    addfunc(add_list,home_path,dir)
+    addfunc(add_list, HOME_PATH, dir)
 
-    # パッケージ削除処理
-    removefunc(remove_list,home_path,dir)
+    removefunc(remove_list, HOME_PATH, dir)
 
-def addfunc(add_list,home_path,dir):
+
+def addfunc(add_list, HOME_PATH, dir):
     for package in add_list:
         git_url = 'https://github.com/'
         repo = git_url + '/'.join(package) + '.git'
-        path = home_path + dir + package[1]
-        subprocess.run(['git','clone',repo,path])
+        path = HOME_PATH + d + package[1]
+        subprocess.run(['git', 'clone', repo, path])
 
-def removefunc(remove_list,home_path,dir):
+
+def removefunc(remove_list, HOME_PATH, d):
     for plug in remove_list:
-        path = home_path + dir + plug
+        path = HOME_PATH + d + plug
         shutil.rmtree(path)
         print('remove ' + plug)
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])
