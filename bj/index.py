@@ -1,5 +1,6 @@
 import json
 import random
+import sys
 
 MARK = ['Spade', 'Heart', 'Diamond', 'Club']
 RANK = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
@@ -54,28 +55,51 @@ def main():
     you = Player("You")
     dealer = Player("Dealer")
     game = Game(you, dealer, deck)
-    flg = True
+    yflg = True
+    dflg = True
 
     print("===Your Card===")
-    print(you.hands)
+    print("Your hand is {0} => {1}".format(you.hands, game.check_sum(you.hands)))
 
-    while flg:
+    while yflg:
         print("Draw ? (y/n)")   #i1
         i1 = input()
         if i1 == "y":
             you.hands.append(deck.draw())
-            print(game.check_sum(you.hands))
             if game.check_sum(you.hands) > 21:
-                print(you.hands)
+                print("Your hand is {0} => {1}".format(you.hands, game.check_sum(you.hands)))
                 print("BREAK")
                 print("You Lose")
-                flg = False
+                sys.exit()
+                yflg = False
             else:
-                print(you.hands)
+                print("Your hand is {0} => {1}".format(you.hands, game.check_sum(you.hands)))
         else:
-            flg = False
+            yflg = False
 
-    print("Your hand is {0}".format(you.hands))
+    print("Dealer hand is {0} => {1}".format(dealer.hands, game.check_sum(dealer.hands)))
+
+    while dflg:
+        dealer.hands.append(deck.draw())
+        print(dealer.hands)
+        if game.check_sum(dealer.hands) < 17:
+            dflg = False
+        if game.check_sum(dealer.hands) > 21:
+            print("Dealer hand is {0} => {1}".format(dealer.hands, game.check_sum(dealer.hands)))
+            print("BREAK")
+            print("You Win")
+            dflg = False
+            sys.exit()
+        else:
+            dflg = False
+
+    print("Your hand is {0} => {1}".format(you.hands, game.check_sum(you.hands)))
+    print("Dealer hand is {0} => {1}".format(dealer.hands, game.check_sum(dealer.hands)))
+    if game.check_sum(you.hands) > game.check_sum(dealer.hands):
+        print("You Win")
+    else:
+        print("You Lose")
+
     print("===finish===")
 
 
