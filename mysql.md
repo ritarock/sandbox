@@ -49,11 +49,11 @@ DROP TABLE テーブル名;
 # データの挿入
 useで指定している場合はデータベース名は省略可
 ```sql
-INSERT INTO データベース名.テーブル名(列名1, 列名2,...) VALUES (値1, 値2,...);
+INSERT INTO データベース名.テーブル名(列名1, 列名2,...) VALUES(値1, 値2,...);
 ```
 全てのカラムに値を追加する場合
 ```sql
-INSERT INTO テーブル名 VVALUES (値1, 値2,...);
+INSERT INTO テーブル名 VALUES(値1, 値2,...);
 ```
 
 # データの出力
@@ -171,4 +171,10 @@ SELECT * FROM テーブル名1 LEFT OUTER JOIN テーブル名2 USING(列名)
 2つのテーブルの組み合わせを作る
 ```sql
 SELECT * FROM テーブル1 CROSS JOIN テーブル2;
+```
+
+# ビュー
+データを持たず実行文が入っているだけ
+```sql
+CREATE VIEW ビュー名 (列名1, 列名2, ...) AS <SELECT文>;
 ```
