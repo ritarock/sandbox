@@ -178,3 +178,13 @@ SELECT * FROM テーブル1 CROSS JOIN テーブル2;
 ```sql
 CREATE VIEW ビュー名 (列名1, 列名2, ...) AS <SELECT文>;
 ```
+
+# 数値として値を取り出す
+```sql
+SELECT 列名 as unsigned FROM テーブル名;
+```
+
+# index の付け方
+```sql
+ALTER TABLE テーブル名 ADD INDEX インデックス名 (列名);
+```
