@@ -6,36 +6,38 @@ import (
 	"os"
 )
 
-// ReadFile read file
-func readFile(path string) string {
-	data, err := ioutil.ReadFile(path)
+// FileOpration path string
+type FileOpration struct {
+	path string
+}
+
+func (f FileOpration) writeFile(data string) string {
+	err := ioutil.WriteFile(f.path, []byte(data), 0755)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return fmt.Sprintf("Create %s", f.path)
+}
+
+func (f FileOpration) readFile() string {
+	data, err := ioutil.ReadFile(f.path)
 	if err != nil {
 		fmt.Println(err)
 	}
 	return string(data)
 }
 
-// writeFile write file
-func writeFile(path string, data string) string {
-	err := ioutil.WriteFile(path, []byte(data), 0755)
+func (f FileOpration) removeFile() string {
+	err := os.Remove(f.path)
 	if err != nil {
 		fmt.Println(err)
 	}
-	return fmt.Sprintf("Create %s", path)
+	return fmt.Sprintf("Remove %s", f.path)
 }
-
-// removeFile remove file
-func removeFile(path string) string {
-	err := os.Remove(path)
-	if err != nil {
-		fmt.Println(err)
-	}
-	return fmt.Sprintf("Remove %s", path)
-}
-
 
 func main() {
-	fmt.Println(readFile("./read.file"))
-	fmt.Println(writeFile("./write.file", "hello world"))
-	fmt.Println(removeFile("./write.file"))
+	wf := FileOpration{"./file.txt"}
+	fmt.Println(wf.writeFile("hello"))
+	fmt.Println(wf.readFile())
+	fmt.Println(wf.removeFile())
 }
