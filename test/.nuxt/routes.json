@@ -1,0 +1,23 @@
+[
+  {
+    "name": "table",
+    "path": "/table",
+    "component": "/Users/osakiryota/work/sand-box/test/pages/table/index.vue",
+    "chunkName": "pages/table/index",
+    "_name": "_56786445"
+  },
+  {
+    "name": "user",
+    "path": "/user",
+    "component": "/Users/osakiryota/work/sand-box/test/pages/user/index.vue",
+    "chunkName": "pages/user/index",
+    "_name": "_0d8bdaca"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/osakiryota/work/sand-box/test/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_77b2a246"
+  }
+]
