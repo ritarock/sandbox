@@ -7,8 +7,8 @@ import (
 )
 
 type User struct {
-	gorm.Model
-	Content string `form:"content" binding:"required"`
+	ID   int    `gorm:"primary_key"`
+	Name string `gorm:"type:varchar(10)"`
 }
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 
 	dbInit()
 
-	router.GET("/", func(c *gin.Context) {
+	router.GET("/index", func(c *gin.Context) {
 		users := dbGetAll()
 		c.JSON(200, gin.H{
 			"users": users,
@@ -40,7 +40,7 @@ func gormConnect() *gorm.DB {
 	PASS := "password"
 	DBNAME := "sample_db"
 
-	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true"
+	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
 	db, err := gorm.Open(DBMS, CONNECT)
 	if err != nil {
 		panic(err.Error())
@@ -53,6 +53,6 @@ func dbGetAll() []User {
 
 	defer db.Close()
 	var users []User
-	db.Order("created_at desc").Find(&users)
+	db.Find(&users)
 	return users
 }
