@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -21,6 +23,23 @@ func main() {
 		c.JSON(200, gin.H{
 			"users": users,
 		})
+	})
+
+	router.POST("/new", func(c *gin.Context) {
+		var formUser User
+
+		if err := c.Bind(&formUser); err != nil {
+			users := dbGetAll()
+			c.JSON(200, gin.H{
+				"err": users,
+			})
+			c.Abort()
+		} else {
+			name := c.PostForm("userpost")
+			fmt.Println(name)
+			dbInsert(name)
+			c.Redirect(302, "/index")
+		}
 	})
 
 	router.Run()
@@ -55,4 +74,12 @@ func dbGetAll() []User {
 	var users []User
 	db.Find(&users)
 	return users
+}
+
+func dbInsert(name string) {
+	db := gormConnect()
+
+	defer db.Close()
+
+	db.Create(&User{Name: name})
 }
