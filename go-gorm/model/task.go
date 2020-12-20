@@ -1,8 +1,6 @@
 package model
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -14,7 +12,7 @@ type Task struct {
 	Status int
 }
 
-func GetTaskAll() []Task {
+func (t Task) GetAll() []Task {
 	db := GormConnect()
 	defer db.Close()
 
@@ -23,11 +21,10 @@ func GetTaskAll() []Task {
 	return tasks
 }
 
-func CreateTask() {
+func (t Task) Create() {
 	db := GormConnect()
 	defer db.Close()
 
-	var task = Task{Name: "test", Status: 0}
-	fmt.Println(task)
+	var task = Task{Name: t.Name, Status: t.Status}
 	db.Create(&task)
 }
