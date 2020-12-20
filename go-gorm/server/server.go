@@ -2,6 +2,7 @@ package server
 
 import (
 	"go-gorm/model"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,14 +12,20 @@ func Run() {
 	model.DbInit()
 
 	router.GET("/index", func(c *gin.Context) {
-		tasks := model.GetTaskAll()
+		task := model.Task{}
 		c.JSON(200, gin.H{
-			"tasks": tasks,
+			"tasks": task.GetAll(),
 		})
 	})
 
-	router.GET("/create", func(c *gin.Context) {
-		model.CreateTask()
+	router.POST("/new", func(c *gin.Context) {
+		var t model.Task
+		t.Name = c.PostForm("Name")
+		t.Status, _ = strconv.Atoi(c.PostForm("Status"))
+
+		task := model.Task{Name: t.Name, Status: t.Status}
+		task.Create()
+		c.Redirect(302, "/index")
 	})
 
 	router.Run()
