@@ -8,25 +8,31 @@ import (
 )
 
 func Run() {
-	router := gin.Default()
+	engine := gin.Default()
 	model.DbInit()
 
-	router.GET("/index", func(c *gin.Context) {
-		task := model.Task{}
-		c.JSON(200, gin.H{
-			"tasks": task.GetAll(),
-		})
-	})
+	router := engine.Group("service")
+	{
+		v0 := router.Group("v0")
+		{
+			v0.GET("/index", func(c *gin.Context) {
+				task := model.Task{}
+				c.JSON(200, gin.H{
+					"tasks": task.GetAll(),
+				})
+			})
 
-	router.POST("/new", func(c *gin.Context) {
-		var t model.Task
-		t.Name = c.PostForm("Name")
-		t.Status, _ = strconv.Atoi(c.PostForm("Status"))
+			v0.POST("/new", func(c *gin.Context) {
+				var t model.Task
+				t.Name = c.PostForm("Name")
+				t.Status, _ = strconv.Atoi(c.PostForm("Status"))
 
-		task := model.Task{Name: t.Name, Status: t.Status}
-		task.Create()
-		c.Redirect(302, "/index")
-	})
+				task := model.Task{Name: t.Name, Status: t.Status}
+				task.Create()
+				c.Redirect(302, "/service/v0/index")
+			})
+		}
+	}
 
-	router.Run()
+	engine.Run()
 }
