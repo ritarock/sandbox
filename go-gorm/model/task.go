@@ -1,7 +1,6 @@
 package model
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -22,15 +21,6 @@ func (t Task) GetAll() []Task {
 	return tasks
 }
 
-func (t Task) FindId(id string) Task {
-	db := GormConnect()
-	defer db.Close()
-
-	var task Task
-	db.Where("id = ?", id).Find(&task)
-	return task
-}
-
 func (t Task) Create() {
 	db := GormConnect()
 	defer db.Close()
@@ -39,23 +29,31 @@ func (t Task) Create() {
 	db.Create(&task)
 }
 
-func (t Task) Get() *gorm.DB {
+func (t Task) Get(id string) Task {
 	db := GormConnect()
 	defer db.Close()
 
-	var task = Task{Name: t.Name}
-	return db.First(&task)
+	var task Task
+	db.Where("id = ?", id).Find(&task)
+	return task
 }
 
-func (t Task) Update(c *gin.Context) {
+func (t Task) Update(id string) {
 	db := GormConnect()
 	defer db.Close()
+
+	var task Task
+	db.Where("id = ?", id).Find(&task)
+	task.Name = t.Name
+	task.Status = t.Status
+	db.Save(&task)
 }
 
-func (t Task) Delete() {
+func (t Task) Delete(id string) {
 	db := GormConnect()
 	defer db.Close()
 
-	var task = Task{Model: gorm.Model{ID: t.ID}}
+	var task Task
+	db.Where("id = ?", id).Find(&task)
 	db.Delete(&task)
 }

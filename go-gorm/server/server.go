@@ -1,13 +1,13 @@
 package server
 
 import (
+	"fmt"
 	"go-gorm/model"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
-
-	_ "github.com/go-sql-driver/mysql"
 )
+
+const VERSION = "v0"
 
 func Run() {
 	engine := gin.Default()
@@ -15,33 +15,49 @@ func Run() {
 
 	router := engine.Group("service")
 	{
-		v0 := router.Group("v0")
+		api := router.Group(VERSION)
 		{
-			v0.GET("/tasks", func(c *gin.Context) {
+			api.GET("/tasks", func(c *gin.Context) {
 				task := model.Task{}
 				c.JSON(200, gin.H{
 					"tasks": task.GetAll(),
 				})
 			})
 
-			v0.POST("/tasks", func(c *gin.Context) {
-				var t model.Task
-				t.Name = c.PostForm("Name")
-				t.Status, _ = strconv.Atoi(c.PostForm("Status"))
-
-				task := model.Task{Name: t.Name, Status: t.Status}
+			api.POST("/tasks", func(c *gin.Context) {
+				task := model.Task{}
+				err := c.ShouldBindJSON(&task)
+				if err != nil {
+					fmt.Println(err)
+				}
 				task.Create()
-				c.Redirect(302, "/service/v0/tasks")
+				c.Redirect(302,
+					"/service/"+VERSION+"/tasks")
 			})
 
-			v0.GET("tasks/:id", func(c *gin.Context) {
+			api.GET("tasks/:id", func(c *gin.Context) {
 				var t model.Task
 				c.JSON(200, gin.H{
-					"task": t.FindId(c.Param("id")),
+					"task": t.Get(c.Param("id")),
 				})
 			})
 
-			v0.PUT("tasks/:id", func(c *gin.Context) {
+			api.PUT("tasks/:id", func(c *gin.Context) {
+				task := model.Task{}
+				err := c.ShouldBindJSON(&task)
+				if err != nil {
+					fmt.Println(err)
+				}
+				task.Update(c.Param("id"))
+				c.Redirect(302,
+					"/service/"+VERSION+"/tasks")
+			})
+
+			api.DELETE("tasks/:id", func(c *gin.Context) {
+				task := model.Task{}
+				task.Delete(c.Param("id"))
+				c.Redirect(302,
+					"/service/"+VERSION+"/tasks")
 			})
 		}
 	}
