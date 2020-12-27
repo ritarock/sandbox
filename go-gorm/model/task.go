@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -21,7 +22,7 @@ func (t Task) GetAll() []Task {
 	return tasks
 }
 
-func (t Task) FindId(id uint) Task {
+func (t Task) FindId(id string) Task {
 	db := GormConnect()
 	defer db.Close()
 
@@ -46,12 +47,9 @@ func (t Task) Get() *gorm.DB {
 	return db.First(&task)
 }
 
-func (t Task) Update() {
+func (t Task) Update(c *gin.Context) {
 	db := GormConnect()
 	defer db.Close()
-
-	var task = Task{Name: t.Name}
-	db.Updates(&task)
 }
 
 func (t Task) Delete() {
