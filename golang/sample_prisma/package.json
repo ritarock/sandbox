@@ -1,0 +1,9 @@
+{
+  "name": "sample_prisma",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "prisma": "^2.18.0"
+  }
+}
