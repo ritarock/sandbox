@@ -13,7 +13,7 @@ import (
 func main() {
 	client := db.NewClient()
 	if err := client.Prisma.Connect(); err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 
 	defer func() {
@@ -26,11 +26,12 @@ func main() {
 
 	r.POST("/tasks", func(c *gin.Context) {
 		var task db.TaskModel
-		if err := c.ShouldBind(&task); err == nil {
+		if err := c.ShouldBind(&task); err != nil {
 			c.String(http.StatusOK, `Bind err`)
 		}
 		var text *string
 		if newText, ok := task.Text(); ok {
+			fmt.Println(newText)
 			text = &newText
 		}
 		var completed *bool
@@ -44,7 +45,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err)
 		}
-		c.JSON(http.StatusOK, newTask)
+		c.JSON(http.StatusOK, gin.H{"done": newTask})
 	})
 
 	r.GET("/tasks", func(c *gin.Context) {
@@ -54,6 +55,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err)
 		}
+		fmt.Println(tasks)
 		c.JSON(http.StatusOK, tasks)
 	})
 
