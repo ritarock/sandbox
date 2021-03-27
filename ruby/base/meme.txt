@@ -1,0 +1,39 @@
+$ docker-compose build
+
+$ docker-compose up
+
+$ docker-compose exec web rails new taskleaf --database=mysql
+
+$ docker-compose exec web bash
+
+# cd usr/src/
+# rails new . --database=mysql
+# exit
+
+$ docker cp rails_web:/usr/src/. .
+$ docker-compose down -v
+
+docker-compose.yml の web に追加
+```
+volumes:
+  - .:/usr/src/
+```
+
+config/database.yml を変更
+```
+password: password
+host: db
+```
+
+$ docker-compose exec web bash
+
+# cd usr/src/
+# bundle
+# rails db:create
+
+
+起動
+# rails s
+
+db のコンテナに入る
+$ docker-compose exec db bash
