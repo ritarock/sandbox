@@ -12,7 +12,20 @@ func main() {
 	fmt.Println("start")
 
 	go func() {
-		process(2, "A")
+		ch3 := make(chan bool)
+		ch4 := make(chan bool)
+
+		go func() {
+			process(2, "A")
+			ch3 <- true
+		}()
+
+		go func() {
+			process(2, "C")
+			ch4 <- true
+		}()
+		<-ch3
+		<-ch4
 		ch1 <- true
 	}()
 
