@@ -5,16 +5,22 @@ import (
 	"time"
 )
 
+func process(num int, str string) {
+	for i := 0; i <= num; i++ {
+		time.Sleep(1 * time.Second)
+		fmt.Println(i, str)
+	}
+}
+
 func main() {
 	ch1 := make(chan bool)
 	ch2 := make(chan bool)
+	ch3 := make(chan bool)
+	ch4 := make(chan bool)
 
 	fmt.Println("start")
 
 	go func() {
-		ch3 := make(chan bool)
-		ch4 := make(chan bool)
-
 		go func() {
 			process(2, "A")
 			ch3 <- true
@@ -38,11 +44,4 @@ func main() {
 	<-ch2
 
 	fmt.Println("Finish")
-}
-
-func process(num int, str string) {
-	for i := 0; i <= num; i++ {
-		time.Sleep(1 * time.Second)
-		fmt.Println(i, str)
-	}
 }
