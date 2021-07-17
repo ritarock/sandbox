@@ -8,6 +8,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", index)
 	mux.HandleFunc("/user", userHandler)
+	mux.HandleFunc("/users", usersHandler)
 
 	server := http.Server{
 		Addr:    "0.0.0.0:8080",
