@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./database/Dockerfile
+    restart: always
+    environment:
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database/conf.d:/etc/mysql/conf.d
+      - ./database/initdb.d:/docker-entry-point-initdb.d
+
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    tty: true
+    volumes:
+      - ./:/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    command: go run main.go router.go data.go
