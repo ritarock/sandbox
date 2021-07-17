@@ -13,19 +13,21 @@ var count int
 var Db *sql.DB
 
 type Post struct {
-	Id        int
+	ID        int
 	Content   string
 	Author    string `sql:"not null"`
 	Comments  []Comment
 	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Comment struct {
-	Id        int
+	ID        int
 	Content   string
 	Author    string `sql:"not null"`
 	PostId    int
 	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 func gormConnect() *gorm.DB {
