@@ -13,9 +13,19 @@ var count int
 var Db *sql.DB
 
 type User struct {
-	ID        int       `json:"id"`
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	Tasks     []Task
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"create_at"`
+}
+
+type Task struct {
+	Id        int       `json:"id"`
 	Name      string    `json:"name"`
-	Email     string    `json:"email"`
+	UserId    int       `json:"user_id"`
+	Status    int       `json:"status"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"create_at"`
 }
@@ -46,5 +56,5 @@ func gormConnect() *gorm.DB {
 func init() {
 	fmt.Println("Started")
 	db := gormConnect()
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&User{}, &Task{})
 }
