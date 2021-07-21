@@ -27,4 +27,4 @@ services:
       - 8080:8080
     depends_on:
       - db
-    command: go run main.go router.go data.go
+    command: go run main.go router.go

@@ -7,10 +7,8 @@ import (
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", index)
-	mux.HandleFunc("/users", usersHandler)
-	mux.HandleFunc("/user/", userHandler)
-	mux.HandleFunc("/tasks", tasksHandler)
-	mux.HandleFunc("/task", taskHandler)
+	mux.HandleFunc("/v1/users", getUsers)
+	mux.HandleFunc("/v1/users/create", createUsers)
 
 	server := http.Server{
 		Addr:    "0.0.0.0:8080",
