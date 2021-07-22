@@ -27,9 +27,15 @@ func readUsersAll(writer http.ResponseWriter, request *http.Request) {
 }
 
 func createUsers(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "POST" {
+		waring(request.Method, "Method Not Allow")
+		badRequest(writer, request, 405, "Method Not Allow")
+		return
+	}
 	err := request.ParseForm()
 	if err != nil {
-		fmt.Println(err)
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
 		return
 	}
 	var user data.User
@@ -47,10 +53,16 @@ func createUsers(writer http.ResponseWriter, request *http.Request) {
 }
 
 func readUsers(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "GET" {
+		waring(request.Method, "Method Not Allow")
+		badRequest(writer, request, 405, "Method Not Allow")
+		return
+	}
 	sub := strings.TrimPrefix(request.URL.Path, "/users/read/")
 	userId, err := strconv.Atoi(sub)
 	if err != nil {
-		fmt.Println(err)
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
 		return
 	}
 	var user data.User
@@ -68,10 +80,16 @@ func readUsers(writer http.ResponseWriter, request *http.Request) {
 }
 
 func updateUsers(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "PUT" {
+		waring(request.Method, "Method Not Allow")
+		badRequest(writer, request, 405, "Method Not Allow")
+		return
+	}
 	sub := strings.TrimPrefix(request.URL.Path, "/users/update/")
 	userId, err := strconv.Atoi(sub)
 	if err != nil {
-		fmt.Println(err)
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
 		return
 	}
 	var user data.User
@@ -93,10 +111,16 @@ func updateUsers(writer http.ResponseWriter, request *http.Request) {
 }
 
 func deleteUsers(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "DELETE" {
+		waring(request.Method, "Method Not Allow")
+		badRequest(writer, request, 405, "Method Not Allow")
+		return
+	}
 	sub := strings.TrimPrefix(request.URL.Path, "/users/delete/")
 	userId, err := strconv.Atoi(sub)
 	if err != nil {
-		fmt.Println(err)
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
 		return
 	}
 	var user data.User
