@@ -3,11 +3,11 @@
 ```bash
 $ docker-compose -f docker-compose.dev.yml run generation { arg }
 ```
+
 実行。
 ```bash
 $ docker-compose up
 ```
-
 
 # API
 ## users
@@ -30,6 +30,3 @@ $ docker-compose up
   - `/users/:user_id/tasks?state=working` - 進行中のタスクを取得
   - `/users/:user_id/tasks?state=completed` - 完了済のタスクを取得
   - `/users/:user_id/tasks?state=pending` - 保留中のタスクを取得
-
-
-## response
