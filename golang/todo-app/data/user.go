@@ -2,7 +2,6 @@ package data
 
 import (
 	"fmt"
-	"time"
 )
 
 type User struct {
@@ -11,12 +10,6 @@ type User struct {
 	Email     string `db:"email" json:"email"`
 	CreatedAt string `db:"created_at" json:"created_at"`
 	UpdatedAt string `db:"updated_at" json:"updated_at"`
-}
-
-const FORMAT = "2006-01-02 15:04:05"
-
-func nowTime() string {
-	return time.Now().Format(FORMAT)
 }
 
 func UsersAll() []User {

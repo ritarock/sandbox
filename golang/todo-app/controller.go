@@ -138,3 +138,77 @@ func deleteUsers(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 	writer.Write(r)
 }
+
+func readTasksAll(writer http.ResponseWriter, request *http.Request, user_id int) {
+	tasks := data.TasksAll(user_id)
+	writer.Header().Set("Content-Type", "application/json")
+	var response struct {
+		Code int         `json:"code"`
+		Data []data.Task `json:"data"`
+	}
+	response.Code = 200
+	response.Data = append(response.Data, tasks...)
+	r, _ := json.Marshal(response)
+	writer.Write(r)
+}
+
+func createTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
+	if request.Method != "POST" {
+		waring(request.Method, "Method Not Allow")
+		badRequest(writer, request, 405, "Method Not Allow")
+		return
+	}
+	err := request.ParseForm()
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	var task data.Task
+	json.NewDecoder(request.Body).Decode(&task)
+	task.UserId = user_id
+	task.Create()
+	var response struct {
+		Code int         `json:"code"`
+		Data []data.Task `json:"data"`
+	}
+	response.Code = 200
+	response.Data = append(response.Data, task)
+	r, _ := json.Marshal(response)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(r)
+}
+
+func readTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
+	if request.Method != "GET" {
+		waring(request.Method, "Method Not Allow")
+		badRequest(writer, request, 405, "Method Not Allow")
+		return
+	}
+	sub := strings.TrimPrefix(request.URL.Path, "/users/"+strconv.Itoa(user_id)+"/tasks/read/")
+	taskId, err := strconv.Atoi(sub)
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	var task data.Task
+	task.ID = taskId
+	task.UserId = user_id
+	task.Read()
+	var response struct {
+		Code int         `json:"code"`
+		Data []data.Task `json:"data"`
+	}
+	response.Code = 200
+	response.Data = append(response.Data, task)
+	r, _ := json.Marshal(response)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(r)
+}
+
+func updateTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
+}
+
+func deleteTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
+}
