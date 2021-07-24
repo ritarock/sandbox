@@ -80,7 +80,6 @@ func updateUsers(writer http.ResponseWriter, request *http.Request) {
 	}
 	var user data.User
 	user.ID = userId
-	user.Read()
 	var newUser data.User
 	json.NewDecoder(request.Body).Decode(&newUser)
 	user.Update(newUser)
