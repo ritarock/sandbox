@@ -12,17 +12,17 @@ $ docker-compose up
 # API
 ## users
 - `GET    /users` - ユーザ一覧を取得
-- `POST   /users/create` - ユーザを新規作成
-- `GET    /users/read/:user_id` - user_id を持つユーザを取得
-- `PUT    /users/update/:user_id` - user_id を持つユーザを更新
-- `DELETE /users/delete/:user_id` - user_id を持つユーザを削除
+- `POST   /users` - ユーザを新規作成
+- `GET    /users/:user_id` - user_id を持つユーザを取得
+- `PUT    /users/:user_id` - user_id を持つユーザを更新
+- `DELETE /users/:user_id` - user_id を持つユーザを削除
 
 ## tasks
 - `GET    /users/:user_id/tasks` - user_id を持つユーザのタスク一覧を取得
-- `POST   /users/:user_id/create/tasks` - user_id を持つユーザにタスクを追加
-- `GET    /users/:user_id/read/tasks/:task_id` - user_id を持つユーザの task_id を取得
-- `PUT    /users/:user_id/update/tasks/:task_id` - user_id を持つユーザの task_id を更新
-- `DELETE /users/:user_id/delete/tasks/:task_id` - user_id を持つユーザの task_id を削除
+- `POST   /users/:user_id/tasks` - user_id を持つユーザにタスクを追加
+- `GET    /users/:user_id/tasks/:task_id` - user_id を持つユーザの task_id を取得
+- `PUT    /users/:user_id/tasks/:task_id` - user_id を持つユーザの task_id を更新
+- `DELETE /users/:user_id/tasks/:task_id` - user_id を持つユーザの task_id を削除
 
 ## filter
 - `GET    /users/:user_id/tasks`

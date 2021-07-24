@@ -41,3 +41,28 @@ func (task *Task) Read() {
 		fmt.Println(err)
 	}
 }
+
+func (task *Task) Update(newTask Task) {
+	db := ConnectDb()
+	defer db.Close()
+	now := nowTime()
+	if newTask.Name == "" {
+		newTask.Name = task.Name
+	}
+	if newTask.Detail == "" {
+		newTask.Detail = task.Detail
+	}
+	if newTask.Status == 0 {
+		newTask.Status = task.Status
+	}
+	newTask.UpdatedAt = now
+	query := `UPDATE tasks SET name = ?, detail = ?, status = ?, updated_at = ? WHERE id = ? AND user_id =?`
+	db.MustExec(query, newTask.Name, newTask.Detail, newTask.Status, now, task.ID, task.UserId)
+}
+
+func (task *Task) Delete() {
+	db := ConnectDb()
+	defer db.Close()
+	query := `DELETE FROM tasks WHERE id = ? AND user_id = ?`
+	db.MustExec(query, task.ID, task.UserId)
+}

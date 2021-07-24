@@ -1,23 +1,25 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-	"strconv"
-	"strings"
+
+	"github.com/gorilla/mux"
 )
 
-var mux *http.ServeMux
-
 func main() {
-	mux = http.NewServeMux()
+	mux := mux.NewRouter()
 	mux.HandleFunc("/", index)
-	mux.HandleFunc("/users", readUsersAll)
-	mux.HandleFunc("/users/create", createUsers)
-	mux.HandleFunc("/users/read/", readUsers)
-	mux.HandleFunc("/users/update/", updateUsers)
-	mux.HandleFunc("/users/delete/", deleteUsers)
-	mux.HandleFunc("/users/", taskRouter)
+	mux.HandleFunc("/users", readUsersAll).Methods("GET")
+	mux.HandleFunc("/users", createUsers).Methods("POST")
+	mux.HandleFunc("/users/{user_id}", readUsers).Methods("GET")
+	mux.HandleFunc("/users/{user_id}", updateUsers).Methods("PUT")
+	mux.HandleFunc("/users/{user_id}", deleteUsers).Methods("DELETE")
+
+	mux.HandleFunc("/users/{user_id}/tasks", readTasksAll).Methods("GET")
+	mux.HandleFunc("/users/{user_id}/tasks", createTasks).Methods("POST")
+	mux.HandleFunc("/users/{user_id}/tasks/{task_id}", readTasks).Methods("GET")
+	mux.HandleFunc("/users/{user_id}/tasks/{task_id}", updateTasks).Methods("PUT")
+	mux.HandleFunc("/users/{user_id}/tasks/{task_id}", deleteTasks).Methods("DELETE")
 
 	server := http.Server{
 		Addr:    "0.0.0.0:8080",
@@ -25,30 +27,4 @@ func main() {
 	}
 
 	server.ListenAndServe()
-}
-
-func taskRouter(writer http.ResponseWriter, request *http.Request) {
-	sub := strings.TrimPrefix(request.URL.Path, "/users/")
-	splitPath := strings.Split(sub, "/")
-	user_id, err := strconv.Atoi(splitPath[0])
-	if err != nil {
-		fmt.Println(err)
-	}
-	if len(splitPath) > 2 {
-		method := splitPath[2]
-		switch method {
-		case "create":
-			createTasks(writer, request, user_id)
-		case "read":
-			readTasks(writer, request, user_id)
-		case "update":
-			updateTasks(writer, request, user_id)
-		case "delete":
-			deleteTasks(writer, request, user_id)
-		default:
-			fmt.Fprintf(writer, "err")
-		}
-	} else {
-		readTasksAll(writer, request, user_id)
-	}
 }

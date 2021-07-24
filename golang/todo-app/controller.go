@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"strings"
 	"todo-app/data"
+
+	"github.com/gorilla/mux"
 )
 
 func index(writer http.ResponseWriter, request *http.Request) {
@@ -27,11 +28,6 @@ func readUsersAll(writer http.ResponseWriter, request *http.Request) {
 }
 
 func createUsers(writer http.ResponseWriter, request *http.Request) {
-	if request.Method != "POST" {
-		waring(request.Method, "Method Not Allow")
-		badRequest(writer, request, 405, "Method Not Allow")
-		return
-	}
 	err := request.ParseForm()
 	if err != nil {
 		danger(err, "Cannot parse form")
@@ -53,13 +49,8 @@ func createUsers(writer http.ResponseWriter, request *http.Request) {
 }
 
 func readUsers(writer http.ResponseWriter, request *http.Request) {
-	if request.Method != "GET" {
-		waring(request.Method, "Method Not Allow")
-		badRequest(writer, request, 405, "Method Not Allow")
-		return
-	}
-	sub := strings.TrimPrefix(request.URL.Path, "/users/read/")
-	userId, err := strconv.Atoi(sub)
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
 	if err != nil {
 		danger(err, "Cannot parse form")
 		badRequest(writer, request, 400, "Bad Request")
@@ -80,13 +71,8 @@ func readUsers(writer http.ResponseWriter, request *http.Request) {
 }
 
 func updateUsers(writer http.ResponseWriter, request *http.Request) {
-	if request.Method != "PUT" {
-		waring(request.Method, "Method Not Allow")
-		badRequest(writer, request, 405, "Method Not Allow")
-		return
-	}
-	sub := strings.TrimPrefix(request.URL.Path, "/users/update/")
-	userId, err := strconv.Atoi(sub)
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
 	if err != nil {
 		danger(err, "Cannot parse form")
 		badRequest(writer, request, 400, "Bad Request")
@@ -111,13 +97,8 @@ func updateUsers(writer http.ResponseWriter, request *http.Request) {
 }
 
 func deleteUsers(writer http.ResponseWriter, request *http.Request) {
-	if request.Method != "DELETE" {
-		waring(request.Method, "Method Not Allow")
-		badRequest(writer, request, 405, "Method Not Allow")
-		return
-	}
-	sub := strings.TrimPrefix(request.URL.Path, "/users/delete/")
-	userId, err := strconv.Atoi(sub)
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
 	if err != nil {
 		danger(err, "Cannot parse form")
 		badRequest(writer, request, 400, "Bad Request")
@@ -139,8 +120,15 @@ func deleteUsers(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(r)
 }
 
-func readTasksAll(writer http.ResponseWriter, request *http.Request, user_id int) {
-	tasks := data.TasksAll(user_id)
+func readTasksAll(writer http.ResponseWriter, request *http.Request) {
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	tasks := data.TasksAll(userId)
 	writer.Header().Set("Content-Type", "application/json")
 	var response struct {
 		Code int         `json:"code"`
@@ -152,21 +140,24 @@ func readTasksAll(writer http.ResponseWriter, request *http.Request, user_id int
 	writer.Write(r)
 }
 
-func createTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
-	if request.Method != "POST" {
-		waring(request.Method, "Method Not Allow")
-		badRequest(writer, request, 405, "Method Not Allow")
-		return
-	}
+func createTasks(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
 	if err != nil {
 		danger(err, "Cannot parse form")
 		badRequest(writer, request, 400, "Bad Request")
 		return
 	}
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+
 	var task data.Task
 	json.NewDecoder(request.Body).Decode(&task)
-	task.UserId = user_id
+	task.UserId = userId
 	task.Create()
 	var response struct {
 		Code int         `json:"code"`
@@ -179,14 +170,21 @@ func createTasks(writer http.ResponseWriter, request *http.Request, user_id int)
 	writer.Write(r)
 }
 
-func readTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
-	if request.Method != "GET" {
-		waring(request.Method, "Method Not Allow")
-		badRequest(writer, request, 405, "Method Not Allow")
+func readTasks(writer http.ResponseWriter, request *http.Request) {
+	err := request.ParseForm()
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
 		return
 	}
-	sub := strings.TrimPrefix(request.URL.Path, "/users/"+strconv.Itoa(user_id)+"/tasks/read/")
-	taskId, err := strconv.Atoi(sub)
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	taskId, err := strconv.Atoi(params["task_id"])
 	if err != nil {
 		danger(err, "Cannot parse form")
 		badRequest(writer, request, 400, "Bad Request")
@@ -194,7 +192,7 @@ func readTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
 	}
 	var task data.Task
 	task.ID = taskId
-	task.UserId = user_id
+	task.UserId = userId
 	task.Read()
 	var response struct {
 		Code int         `json:"code"`
@@ -207,8 +205,69 @@ func readTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
 	writer.Write(r)
 }
 
-func updateTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
+func updateTasks(writer http.ResponseWriter, request *http.Request) {
+	err := request.ParseForm()
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	taskId, err := strconv.Atoi(params["task_id"])
+	var task data.Task
+	task.ID = taskId
+	task.UserId = userId
+	task.Read()
+	var newTask data.Task
+	json.NewDecoder(request.Body).Decode(&newTask)
+	task.Update(newTask)
+	task.Read()
+	var response struct {
+		Code int         `json:"code"`
+		Data []data.Task `json:"data"`
+	}
+	response.Code = 200
+	response.Data = append(response.Data, task)
+	r, _ := json.Marshal(response)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(r)
+
 }
 
-func deleteTasks(writer http.ResponseWriter, request *http.Request, user_id int) {
+func deleteTasks(writer http.ResponseWriter, request *http.Request) {
+	err := request.ParseForm()
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	params := mux.Vars(request)
+	userId, err := strconv.Atoi(params["user_id"])
+	if err != nil {
+		danger(err, "Cannot parse form")
+		badRequest(writer, request, 400, "Bad Request")
+		return
+	}
+	taskId, err := strconv.Atoi(params["task_id"])
+	var task data.Task
+	task.ID = taskId
+	task.UserId = userId
+	deleteTask := task
+	deleteTask.Read()
+	task.Delete()
+	var response struct {
+		Code int         `json:"code"`
+		Data []data.Task `json:"data"`
+	}
+	response.Code = 200
+	response.Data = append(response.Data, deleteTask)
+	r, _ := json.Marshal(response)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(r)
 }
