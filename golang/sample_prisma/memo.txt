@@ -1,0 +1,2 @@
+yarn -s run prisma generate
+yarn prisma migrate dev

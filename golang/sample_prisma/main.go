@@ -2,62 +2,58 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"log"
-	"net/http"
 	"sample_prisma/prisma/db"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	if err := run(); err != nil {
+		panic(err)
+	}
+}
+
+func run() error {
 	client := db.NewClient()
 	if err := client.Prisma.Connect(); err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	defer func() {
 		if err := client.Prisma.Disconnect(); err != nil {
-			log.Fatal(err)
+			panic(err)
 		}
 	}()
 
-	r := gin.Default()
+	ctx := context.Background()
 
-	r.POST("/tasks", func(c *gin.Context) {
-		var task db.TaskModel
-		if err := c.ShouldBind(&task); err != nil {
-			c.String(http.StatusOK, `Bind err`)
-		}
-		var text *string
-		if newText, ok := task.Text(); ok {
-			fmt.Println(newText)
-			text = &newText
-		}
-		var completed *bool
-		if newCompleted, ok := task.Completed(); ok {
-			completed = &newCompleted
-		}
-		newTask, err := client.Task.CreateOne(
-			db.Task.Text.SetIfPresent(text),
-			db.Task.Completed.SetIfPresent(completed),
-		).Exec(context.Background())
-		if err != nil {
-			fmt.Println(err)
-		}
-		c.JSON(http.StatusOK, gin.H{"done": newTask})
-	})
+	createdPost, err := client.Post.CreateOne(
+		db.Post.Title.Set("Hi from Prisma"),
+		db.Post.Published.Set(true),
+		db.Post.Desc.Set("Prisma is a database toolkit and makes databases easy"),
+	).Exec(ctx)
+	if err != nil {
+		return err
+	}
 
-	r.GET("/tasks", func(c *gin.Context) {
-		tasks, err := client.Task.FindMany().OrderBy(
-			db.Task.ID.Order(db.ASC),
-		).Exec(context.Background())
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println(tasks)
-		c.JSON(http.StatusOK, tasks)
-	})
+	result, _ := json.MarshalIndent(createdPost, "", " ")
+	fmt.Printf("created post: %s\n", result)
 
-	r.Run()
+	post, err := client.Post.FindUnique(
+		db.Post.ID.Equals(createdPost.ID),
+	).Exec(ctx)
+	if err != nil {
+		return err
+	}
+
+	result, _ = json.MarshalIndent(post, "", " ")
+	fmt.Printf("created post: %s\n", result)
+
+	desc, ok := post.Desc()
+	if !ok {
+		return fmt.Errorf("post's description is null")
+	}
+	fmt.Printf("the post description is: %s\n", desc)
+
+	return nil
 }

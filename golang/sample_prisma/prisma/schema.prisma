@@ -15,3 +15,12 @@ model Task {
   text String?
   completed Boolean? @default(false)
 }
+
+model Post {
+  id String @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String
+  published Boolean
+  desc String?
+}
