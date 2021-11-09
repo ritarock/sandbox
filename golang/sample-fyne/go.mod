@@ -1,4 +1,4 @@
-module sample_fyne
+module sample-fyne
 
 go 1.17
 

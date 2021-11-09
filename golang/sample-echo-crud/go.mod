@@ -1,4 +1,4 @@
-module echo-crud
+module sample-echo-crud
 
 go 1.17
 

@@ -1,4 +1,4 @@
-module sample_sqlx
+module sample-sqlx
 
 go 1.16
 
