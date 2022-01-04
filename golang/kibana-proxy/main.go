@@ -193,5 +193,5 @@ func run(
 	}
 
 	e.Use(middleware.Proxy(middleware.NewRoundRobinBalancer(target)))
-	e.Logger.Fatal(e.Start(bindAddress + strconv.Itoa(port)))
+	e.Logger.Fatal(e.Start(bindAddress + ":" + strconv.Itoa(port)))
 }
