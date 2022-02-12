@@ -5,6 +5,7 @@ package ent
 import (
 	"fmt"
 	"sample-echo-ent-edges/ent/todo"
+	"sample-echo-ent-edges/ent/user"
 	"strings"
 	"time"
 
@@ -22,6 +23,34 @@ type Todo struct {
 	Status bool `json:"status,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
+	// TodoID holds the value of the "todo_id" field.
+	TodoID int `json:"todo_id,omitempty"`
+	// Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the TodoQuery when eager-loading is set.
+	Edges TodoEdges `json:"edges"`
+}
+
+// TodoEdges holds the relations/edges for other nodes in the graph.
+type TodoEdges struct {
+	// Owner holds the value of the owner edge.
+	Owner *User `json:"owner,omitempty"`
+	// loadedTypes holds the information for reporting if a
+	// type was loaded (or requested) in eager-loading or not.
+	loadedTypes [1]bool
+}
+
+// OwnerOrErr returns the Owner value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e TodoEdges) OwnerOrErr() (*User, error) {
+	if e.loadedTypes[0] {
+		if e.Owner == nil {
+			// The edge owner was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: user.Label}
+		}
+		return e.Owner, nil
+	}
+	return nil, &NotLoadedError{edge: "owner"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -31,7 +60,7 @@ func (*Todo) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case todo.FieldStatus:
 			values[i] = new(sql.NullBool)
-		case todo.FieldID:
+		case todo.FieldID, todo.FieldTodoID:
 			values[i] = new(sql.NullInt64)
 		case todo.FieldName:
 			values[i] = new(sql.NullString)
@@ -76,9 +105,20 @@ func (t *Todo) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				t.CreatedAt = value.Time
 			}
+		case todo.FieldTodoID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field todo_id", values[i])
+			} else if value.Valid {
+				t.TodoID = int(value.Int64)
+			}
 		}
 	}
 	return nil
+}
+
+// QueryOwner queries the "owner" edge of the Todo entity.
+func (t *Todo) QueryOwner() *UserQuery {
+	return (&TodoClient{config: t.config}).QueryOwner(t)
 }
 
 // Update returns a builder for updating this Todo.
@@ -110,6 +150,8 @@ func (t *Todo) String() string {
 	builder.WriteString(fmt.Sprintf("%v", t.Status))
 	builder.WriteString(", created_at=")
 	builder.WriteString(t.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(", todo_id=")
+	builder.WriteString(fmt.Sprintf("%v", t.TodoID))
 	builder.WriteByte(')')
 	return builder.String()
 }

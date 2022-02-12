@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
+	"entgo.io/ent/dialect/sql/sqlgraph"
 )
 
 // ID filters vertices based on their ID field.
@@ -110,6 +111,13 @@ func Status(v bool) predicate.Todo {
 func CreatedAt(v time.Time) predicate.Todo {
 	return predicate.Todo(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldCreatedAt), v))
+	})
+}
+
+// TodoID applies equality check predicate on the "todo_id" field. It's identical to TodoIDEQ.
+func TodoID(v int) predicate.Todo {
+	return predicate.Todo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTodoID), v))
 	})
 }
 
@@ -311,6 +319,96 @@ func CreatedAtLT(v time.Time) predicate.Todo {
 func CreatedAtLTE(v time.Time) predicate.Todo {
 	return predicate.Todo(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldCreatedAt), v))
+	})
+}
+
+// TodoIDEQ applies the EQ predicate on the "todo_id" field.
+func TodoIDEQ(v int) predicate.Todo {
+	return predicate.Todo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTodoID), v))
+	})
+}
+
+// TodoIDNEQ applies the NEQ predicate on the "todo_id" field.
+func TodoIDNEQ(v int) predicate.Todo {
+	return predicate.Todo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTodoID), v))
+	})
+}
+
+// TodoIDIn applies the In predicate on the "todo_id" field.
+func TodoIDIn(vs ...int) predicate.Todo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Todo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTodoID), v...))
+	})
+}
+
+// TodoIDNotIn applies the NotIn predicate on the "todo_id" field.
+func TodoIDNotIn(vs ...int) predicate.Todo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Todo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTodoID), v...))
+	})
+}
+
+// TodoIDIsNil applies the IsNil predicate on the "todo_id" field.
+func TodoIDIsNil() predicate.Todo {
+	return predicate.Todo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTodoID)))
+	})
+}
+
+// TodoIDNotNil applies the NotNil predicate on the "todo_id" field.
+func TodoIDNotNil() predicate.Todo {
+	return predicate.Todo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTodoID)))
+	})
+}
+
+// HasOwner applies the HasEdge predicate on the "owner" edge.
+func HasOwner() predicate.Todo {
+	return predicate.Todo(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(OwnerTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasOwnerWith applies the HasEdge predicate on the "owner" edge with a given conditions (other predicates).
+func HasOwnerWith(preds ...predicate.User) predicate.Todo {
+	return predicate.Todo(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(OwnerInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, OwnerTable, OwnerColumn),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
 	})
 }
 
