@@ -194,14 +194,16 @@ func main() {
 		todoId, _ := strconv.Atoi(c.Param("todo_id"))
 		userId, _ := strconv.Atoi(c.Param("user_id"))
 
-		user, err := client.User.Query().Where(user.ID(userId)).Only(context.Background())
-		user.Update().AddTodoIDs(todoId)
-
+		user, err := client.User.
+			UpdateOneID(userId).
+			AddTodoIDs(todoId).
+			Save(context.Background())
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 				"message": http.StatusInternalServerError,
 			})
 		}
+
 		return c.JSON(http.StatusOK, map[string]interface{}{
 			"name": user.Name,
 		})
