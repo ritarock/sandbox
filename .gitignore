@@ -1,3 +1,5 @@
 .DS_Store
 */atc/problem
 !*/atc/main.go
+*/atc/*.py
+waifu-diffusion/
