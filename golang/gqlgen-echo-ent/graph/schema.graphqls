@@ -1,0 +1,20 @@
+type Task {
+  title: String!
+  note: String!
+  completed: Int!
+  created_at: String!
+  updated_at: String!
+}
+
+input NewTask {
+  title: String!
+  note: String!
+}
+
+type Mutation {
+  createTask(input: NewTask!): Task!
+}
+
+type Query {
+  tasks: [Task!]!
+}
