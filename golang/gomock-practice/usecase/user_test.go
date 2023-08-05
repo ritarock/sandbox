@@ -29,10 +29,12 @@ func TestUserUsecase_DoSomething(t *testing.T) {
 	if entity == nil {
 		t.Errorf("entity is nil")
 	}
-	if entity.ID != id {
-		t.Errorf("expected: %v, actuacl: %v", id, entity.ID)
-	}
-	if entity.Name != name {
-		t.Errorf("expected: %v, actuacl: %v", name, entity.Name)
+	if entity != nil {
+		if entity.ID != id {
+			t.Errorf("expected: %v, actuacl: %v", id, entity.ID)
+		}
+		if entity.Name != name {
+			t.Errorf("expected: %v, actuacl: %v", name, entity.Name)
+		}
 	}
 }
