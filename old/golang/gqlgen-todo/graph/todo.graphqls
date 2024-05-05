@@ -1,8 +1,0 @@
-type Todo implements Node {
-    id: ID!
-	title: String!
-	note: String!
-	completed: Boolean!
-	created_at: Datetime!
-	updated_at: Datetime!
-}
